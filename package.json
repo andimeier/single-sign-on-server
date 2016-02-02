@@ -1,0 +1,22 @@
+{
+  "name": "single-sign-on",
+  "version": "0.0.1",
+  "description": "Sigle-Sign-On Identity Provider",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app/server.js"
+  },
+  "author": "Alexander Eck-Zimmer",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4",
+    "body-parser": "^1.14.2",
+    "handlebars": "^4.0.5",
+    "fs": "0.0.2",
+    "eyes": "^0.1.8",
+    "bootstrap": "^3.3.6",
+    "urijs": "^1.17.0",
+    "express-session": "^1.13.0"
+  }
+}

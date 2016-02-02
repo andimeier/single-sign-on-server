@@ -1,0 +1,36 @@
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body onload='setFocusToForm()'>
+
+  <h2>Single Sign On</h2>
+
+  <div class="well">
+    <form class="form" action="login" method="post">
+      {{#if errorMessage}}
+        <div class="alert alert-danger fade in">{{errorMessage}}</div>
+      {{/if}}
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" name="username" class="form-control" id="username" placeholder="Username" value="{{username}}">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+      </div>
+
+      <input type="hidden" name="target" value="{{target}}">
+      <button type="submit" class="btn btn-default">Login</button>
+    </form>
+  </div>
+
+  <script language="javascript">
+  function setFocusToForm(){
+      document.getElementById("username").focus();
+  }
+  </script>
+
+</body>
+</html>
