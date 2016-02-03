@@ -1,11 +1,10 @@
-# single-sign-on-server
+# Single-Sign-On-Server
 
 Single-Sign-On (SSO) server ("Identity Provider" in SAML terms).
 
 ## Install and run server
 
-    npm install
-    npm start
+Server serving as sort of "identity provider" in the context of a single-sign-on (SSO) system.
 
 ## Usage on the client
 
