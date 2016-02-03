@@ -22,32 +22,40 @@ function redirectToTarget(res, target, sessionId) {
   res.redirect(uri(target).addQuery("ssoSessionId", sessionId));
 }
 
-// ----------------------------------------------------
-var app = express();
 
-app.use(session({
-  name: 'ssoSessionId',
-  resave: false,
-  saveUninitialized: false
-  secret: 'sso-secret-ssshhhhh',
-}));
+function getAndSendSession(req, res) {
+  // if a backend requests the session info, it has no access to session
+  // cookies, since these are stored in the browser cookie cache. Thus, to
+  // retrieve session info, the requesting backend must provide the SSO token
+  // in the request URL as a parameter
+  store.get(req.params.ssoToken, function (err, data) {
+    if (err) {
+      res.status(401).send(err);
+    }
 
-app.get('/user', function (req, res) {
+    res.send(data);
+  });
+}
+
+
+function sendSession(req, res) {
+  // no ssoToken as query parameter => fetch it from session (this only works
+  // if a user agent (a.k.a. browser) requests the info.
   res.send(req.session.user);
-});
+}
 
-app.get('/login', function (req, res) {
+
+function login(req, res) {
   var data;
 
   data = {
     target: req.query.target
   };
   template.render(res, 'login.html', data);
-});
+};
 
-app.use(bodyParser.urlencoded({ extended: false }));
 
-app.post('/login', function (req, res) {
+function processLogin(req, res) {
   var username;
   var password;
   var target;
@@ -80,7 +88,31 @@ app.post('/login', function (req, res) {
       });
     }
   });
-});
+}
+
+
+// ----------------------------------------------------
+var app = express();
+var sessionStore; // ?TODO where do I get the session store instance from?
+
+
+app.use(session({
+  name: 'ssoSessionId',
+  resave: false,
+  saveUninitialized: false,
+  secret: 'sso-secret-ssshhhhh',
+  store: sessionStore
+}));
+
+
+app.get('/user/:ssoToken', getAndSendSession);
+app.get('/user', sendSession);
+app.get('/login', login);
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.post('/login', processLogin);
+
 
 app.listen(config.port, function () {
   console.log('Single-Sign-On app listening on port ' + config.port + ' ...');
