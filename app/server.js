@@ -22,15 +22,17 @@ app.use(session({
 }));
 
 
-app.get('/user/:ssoToken', login.getAndSendSession);
-app.get('/user', login.sendSession);
-app.get('/login', login.enterLogin);
+app.get('/id.:format?/:ssoToken', login.getAndSendSession);
+app.get('/id.:format?', login.sendSession);
+app.get('/auth', login.enterLogin);
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 app.post('/login', login.processLogin);
 
 
-app.listen(config.port, function () {
+app.listen(config.port, function() {
   console.log('Single-Sign-On app listening on port ' + config.port + ' ...');
 });

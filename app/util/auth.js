@@ -5,9 +5,11 @@
  * @param {function} callback function with signature (err, data). err is the
   *   error string (in case of error), data is the auth object on success
  */
-exports.authenticate = function (username, password, callback) {
+exports.authenticate = function(username, password, callback) {
   if (username === 'alex') {
-    callback(null, { userId: 66 });
+    callback(null, {
+      userId: 66
+    });
   } else {
     callback('Wrong username or password.');
   }
