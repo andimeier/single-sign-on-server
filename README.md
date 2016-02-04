@@ -2,9 +2,20 @@
 
 Single-Sign-On (SSO) server ("Identity Provider" in SAML terms).
 
+## Terminology
+
+In this document, the term "Identity Provider" and "Service Provider" is used in the spirit of SAML:
+
+An **Identity Provider** is a server providing the central login service. This is the pivot point of the SSO mechanism.
+
+A **Service Provider** is any server _using_ the SSO mechanism from the Identity Provider. It delegates the login procedure to the Identity Provider and receives the user data of the logged in user from it.
+
 ## Install and run server
 
-Server serving as sort of "identity provider" in the context of a single-sign-on (SSO) system.
+Adapt the configuration in `app/config.js`, then:
+
+    npm install
+    npm start
 
 ## Usage on the client
 
