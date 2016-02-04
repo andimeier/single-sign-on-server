@@ -75,7 +75,7 @@ exports.getAndSendSession = function(req, res) {
 
   //? TODO mock session store, replace with real one ...
   var store = {
-    get: function (dummy, cb) { cb({ username: 'Alex the Wild'}); }
+    get: function (dummy, cb) { cb(null, { username: 'Alex the Wild'}); }
   };
   store.get(req.params.ssoToken, function(err, data) {
     if (err) {
@@ -150,6 +150,7 @@ exports.processLogin = function(req, res) {
       decodedTarget = decodeTarget(target);
 
       if (decodedTarget) {
+        console.log('Login successful. Redirecting to ' + decodedTarget);
         redirectToTarget(res, decodedTarget, req.session.id);
       } else {
         template.render(res, 'login.html', {
